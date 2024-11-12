@@ -1,0 +1,125 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}StockManagement index{% endblock %}
+
+{% block body %}
+
+<style>
+body{
+    background:#45818E;
+    color:#fff;
+}
+
+
+{# 
+.table thead tr{
+    display:flex;
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%, -50%);
+    box-shadow:2px 2px 10px rgba(0, 0, 0, 0.9 );
+    flex-direction:column;
+    text-align:left;
+    gap:5px;
+    font-size:1.3em;
+    cursor:pointer;
+    padding:20px
+}
+
+ #}
+
+ button{
+    font-family: "Playfair Display", serif;
+    cursor:pointer;
+    background-color: #0c343d;
+    padding: 10px 30px;
+    color:#fff;
+    font-size:1.1em;
+    border:none;
+    transition: background 0.5s ease;
+
+    &:hover{
+        background:#2a606c;
+    }
+     
+ }
+
+ 
+   
+</style>
+    <h1>StockManagement index</h1>
+
+    <table class="table">
+        
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>ProductDescription</th>
+                <th>AvailableQuantity</th>
+                <th>PricePerItem</th>
+                <th>ProductCategory</th>
+                <th>Supplier</th>
+                <th>Sku</th>
+                <th>Location</th>
+                <th>CreationDate</th>
+                <th>MinimumStock</th>
+                <th>LastPurchased</th>
+                <th>TotalValue</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        
+        <tbody>
+        {% for stock_management in stock_managements %}
+            <tr>
+                <td>{{ stock_management.id }}</td>
+                <td>{{ stock_management.name }}</td>
+                <td>{{ stock_management.ProductDescription }}</td>
+                <td>{{ stock_management.AvailableQuantity }}</td>
+                <td>{{ stock_management.PricePerItem }}</td>
+                <td>{{ stock_management.ProductCategory }}</td>
+                <td>{{ stock_management.Supplier }}</td>
+                <td>{{ stock_management.sku }}</td>
+                <td>{{ stock_management.location }}</td>
+                <td>{{ stock_management.CreationDate ? stock_management.CreationDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ stock_management.MinimumStock }}</td>
+                <td>{{ stock_management.LastPurchased ? stock_management.LastPurchased|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ stock_management.TotalValue }}</td>
+                <td>
+                    <a href="{{ path('app_stock_management_show', {'id': stock_management.id}) }}">show</a>
+
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <!-- Edit link -->
+                        <a href="{{ path('app_stock_management_edit', {'id': stock_management.id}) }}">edit</a>
+
+                        <!-- Delete form -->
+                        <form action="{{ path('app_stock_management_delete', {'id': stock_management.id}) }}" method="post" style="display:inline;">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ stock_management.id) }}">
+                            <button type="submit" onclick="return confirm('Are you sure you want to delete this stock item?');">Delete</button>
+                        </form>
+                    {% endif %}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="14">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {# <a href="{{ path('app_stock_management_new') }}">Create new</a> #}
+
+    <form action = "{{ path('app_stock_management_new') }}" method = "post">
+        <button type="submit" id="create">Create new</button>
+    </form>
+
+    <script>
+        document.getEelementById('create').addEventListener('click', function(){
+            window.location.href = "{{ path('app_stock_management_new') }}"
+        })
+    <script>
+{% endblock %}
+

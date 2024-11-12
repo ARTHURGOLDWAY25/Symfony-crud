@@ -1,0 +1,102 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello UserLoginController!{% endblock %}
+
+{% block stylesheets %}
+     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+<style>
+
+    body{
+        margin:0;
+        padding:0;
+        background:#134f5c;
+        color:#fff;
+        font-family: "Playfair Display", serif;
+        
+    }
+    .example-wrapper { 
+        width:500px;
+        background:#A1B29A;
+        position:absolute;
+        top:50%;
+        left:50%;
+        transform:translate(-50%, -50%);
+        border-radius:8px;
+        padding:20px;   
+     }
+
+     span{
+        display:block
+     }
+
+     .form-group{
+        display:flex;
+        justify-content:space-between;
+     }
+
+     button{
+        font-family: "Playfair Display", serif;
+        width:120px;
+        padding:10px;
+        margin-top:20px;
+        cursor:pointer;
+        background:#284259;
+        color:#fff;
+        font-size:1em;
+        letter-spacing:0.1em;
+        border:none;
+        transition: background 0.5s ease;
+
+        &:hover{
+            background: #4876a0;
+
+        }
+     }
+
+     label{
+        font-size: 1.2em
+     }
+
+     .form_widget{width: 60%; padding:8px; margin-bottom:5px;}
+    
+</style>
+
+<div class="example-wrapper">
+    <h3>Welcome to user login page. <span>Please enter your email and password to log in.</span> </h3>
+{{ form_start(form) }}
+
+<div class="form-group">
+    {{ form_label(form.email, null, {'attr': {'class': 'form_label'}}) }}
+    {{ form_widget(form.email, {'attr': {'class': 'form_widget'}}) }}
+    {{ form_errors(form.email) }}  <!-- Display errors for email field -->
+</div>
+
+<div class="form-group">
+    {{ form_label(form.password, null, {'attr': {'class': 'form_label'}}) }}
+    {{ form_widget(form.password, {'attr': {'class': 'form_widget'}}) }}
+    {{ form_errors(form.password) }}  <!-- Display errors for password field -->
+</div>
+
+<button type="submit">Login</button>
+
+{% if error %}
+    <div class="error">{{ error.messageKey }}</div>
+{% endif %}
+
+{{ form_end(form) }}
+
+        <form action="{{ path('app_stock_management_index') }}" method="get">
+            <button type="button" id="login">Go to crud</button>
+        </form
+    
+</div>
+
+ <script>
+        document.getElementById('login').addEventListener('click', function() {
+            window.location.href = "{{ path('app_stock_management_index') }}";
+        });
+    </script>
+{% endblock %}

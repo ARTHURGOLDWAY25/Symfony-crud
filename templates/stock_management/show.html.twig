@@ -1,0 +1,122 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}StockManagement{% endblock %}
+
+
+{% block stylesheets %}
+     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+{# css styling #}
+<style>
+    body{
+        background:#305a63;
+        color:#fff;
+        margin:0;
+        padding:0;
+    }
+
+    #back-to-list,
+    #edit {
+        margin-top:10px;
+    }
+
+    .table tbody tr th{
+        display:flex;
+        align-items:left;
+        margin-bottom:5px;
+        font-size:1em;
+        text-transform:uppercase;
+        margin-right:10px;
+    }
+
+</style>
+{# end os css #}
+    <h1>StockManagement</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ stock_management.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ stock_management.name }}</td>
+            </tr>
+            <tr>
+                <th>ProductDescription</th>
+                <td>{{ stock_management.ProductDescription }}</td>
+            </tr>
+            <tr>
+                <th>AvailableQuantity</th>
+                <td>{{ stock_management.AvailableQuantity }}</td>
+            </tr>
+            <tr>
+                <th>PricePerItem</th>
+                <td>{{ stock_management.PricePerItem }}</td>
+            </tr>
+            <tr>
+                <th>ProductCategory</th>
+                <td>{{ stock_management.ProductCategory }}</td>
+            </tr>
+            <tr>
+                <th>Supplier</th>
+                <td>{{ stock_management.Supplier }}</td>
+            </tr>
+            <tr>
+                <th>Sku</th>
+                <td>{{ stock_management.sku }}</td>
+            </tr>
+            <tr>
+                <th>Location</th>
+                <td>{{ stock_management.location }}</td>
+            </tr>
+            <tr>
+                <th>CreationDate</th>
+                <td>{{ stock_management.CreationDate ? stock_management.CreationDate|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>MinimumStock</th>
+                <td>{{ stock_management.MinimumStock }}</td>
+            </tr>
+            <tr>
+                <th>LastPurchased</th>
+                <td>{{ stock_management.LastPurchased ? stock_management.LastPurchased|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>TotalValue</th>
+                <td>{{ stock_management.TotalValue }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    {# <a href="{{ path('app_stock_management_index') }}">back to list</a> #}
+
+    <form action = "{{ path('app_stock_management_index') }}"  method = "" >
+        <button type = "submit" id = "back-to-list">Back to list </button>
+    </form>
+
+    {# <a href="{{ path('app_stock_management_edit', {'id': stock_management.id}) }}">edit</a> #}
+
+    <form action = "{{ path('app_stock_management_edit', {'id': stock_management.id}) }}"  method = "" >
+        <button type = "submit" id = "edit">Edit </button>
+    </form>
+
+   {{ include('stock_management/_delete_form.html.twig') }}
+
+   {# js for back to list button #}
+   <script>
+    document.getElementById('back-to-list').addEventListener('click', function() {
+        window.location.href = "{{ path('app_stock_management_index') }}";
+    })
+   </script>
+
+    {# js for edit button #}
+   <script>
+    document.getElementById('edit').addEventListener('click', function() {
+        window.location.href = "{{ path('app_stock_management_edit', {'id': stock_management.id}) }}" ;
+    })
+   </script>
+{% endblock %}

@@ -1,0 +1,124 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello RegistrationController!{% endblock %}
+
+{% block stylesheets %}
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+<style>
+body{
+    margin:0;
+    padding:0;
+    background:#A0A693;
+    color:#fff;
+     font-family: "Playfair Display", serif;
+}
+    .example-wrapper {
+         font-family: "Playfair Display", serif;
+        width:500px;
+        padding:20px;
+        background:#535848;
+        position:absolute;
+        top:50%;
+        left:50%;
+        transform:translate(-50%, -50%);
+        border-radius:5px;
+        box-shadow: 2px  2px 10px rgba(0, 0, 0, 0.9 );
+     }
+
+     h3{
+        text-align:center;
+     }
+     .form-group{
+        display:flex;
+        justify-content:space-between;
+     }
+
+     button{
+        width:120px;
+        padding:10px;
+        background:#dda060;
+        color:#fff;
+        cursor:pointer;
+        font-size:1em;
+        border:none;
+        margin-top:10px;
+        transition: background 0.5s ease;
+
+        &:hover{
+            background: #f8c997
+        }
+
+     }
+
+     .form_widget{
+        width:60%;
+        margin-bottom:10px;
+        padding:5px;
+     }
+
+     .form_role{
+        width:63%;
+        padding:5px;
+     }
+
+   
+    
+</style>
+
+<div class="example-wrapper">
+    <h3>Welcome to the user registration page.</h3>
+
+    <div class="form-wrapper">
+        {{ form_start(form) }}
+        
+        <div class="form-group">
+            {{ form_label(form.email, null, {'attr': {'class': 'form_label'}}) }}
+            {{ form_widget(form.email, {'attr': {'class': 'form_widget'}}) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.password.first, null, {'attr': {'class': 'form_label'}}) }}
+            {{ form_widget(form.password.first, {'attr': {'class': 'form_widget'}}) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.password.second, null, {'attr': {'class': 'form_label'}}) }}
+            {{ form_widget(form.password.second, {'attr': {'class': 'form_widget'}}) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.roles, null, {'attr': {'class': 'form_label'}}) }}
+            {{ form_widget(form.roles, {'attr': {'class': 'form_role'}}) }}
+        </div>
+
+        <button type="submit" id="register">Register</button>
+
+        <form action="{{ path('stock-management') }}" method="get">
+            <button type="button" id="login">Go to login</button>
+        </form>
+
+        {{ form_end(form) }}
+    </div>
+
+    {% for label, messages in app.flashes() %}
+        <div class="flash-message {{ label|lower }}">
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+    {% endfor %}
+
+    <script>
+        document.getElementById('login').addEventListener('click', function() {
+            window.location.href = "{{ path('app_user_login') }}";
+        });
+    </script>
+</div>
+
+
+{% endblock %}
+
+

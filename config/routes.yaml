@@ -1,0 +1,14 @@
+app_registration:
+  path: /registration
+  controller: App\Controller\RegistrationController::register
+
+app_user_login:
+  path: /user/login
+  controller: App\Controller\UserLoginController::login
+
+
+
+
+
+
+
